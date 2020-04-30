@@ -27,14 +27,12 @@
 **F. Metode enkripsi pada suatu direktori juga berlaku kedalam direktori lain yang ada didalam direktori tersebut (rekursif).**
 
 ## Soal 3. Sinkronisasi direktori otomatis:
-** Persyaratan untuk sinkronisasi yaitu: **
 
 **A. Kedua directory memiliki parent directory yang sama.**
 
-**B. Kedua directory kosong atau memiliki isi yang sama. Dua directory dapat dikatakan memiliki isi yang sama jika memenuhi:
-  i. Nama dari setiap berkas di dalamnya sama.
-  
-  ii. Modified time dari setiap berkas di dalamnya tidak berselisih lebih dari 0.1 detik.**
+**B. Kedua directory kosong atau memiliki isi yang sama. Dua directory dapat dikatakan memiliki isi yang sama jika memenuhi:**
+  **i. Nama dari setiap berkas di dalamnya sama.**
+  **ii. Modified time dari setiap berkas di dalamnya tidak berselisih lebih dari 0.1 detik.**
   
 **C. Sinkronisasi dilakukan ke seluruh isi dari kedua directory tersebut, tidak hanya di satu child directory saja.**
 
