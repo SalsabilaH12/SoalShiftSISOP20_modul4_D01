@@ -32,11 +32,25 @@
 
 **B. Kedua directory kosong atau memiliki isi yang sama. Dua directory dapat dikatakan memiliki isi yang sama jika memenuhi:**
   **i. Nama dari setiap berkas di dalamnya sama.**
+  
   **ii. Modified time dari setiap berkas di dalamnya tidak berselisih lebih dari 0.1 detik.**
   
 **C. Sinkronisasi dilakukan ke seluruh isi dari kedua directory tersebut, tidak hanya di satu child directory saja.**
 
 **D. Sinkronisasi mencakup pembuatan berkas/directory, penghapusan berkas/directory, dan pengubahan berkas/directory.**
+## Soal 4. Log system:
+**A. Sebuah berkas nantinya akan terbentuk bernama "fs.log" di direktori *home* pengguna (/home/[user]/fs.log) yang berguna menyimpan daftar perintah system call yang telah dijalankan.**
+
+**B. Agar nantinya pencatatan lebih rapi dan terstruktur, log akan dibagi menjadi beberapa level yaitu INFO dan WARNING.**
+
+**C. Untuk log level WARNING, merupakan pencatatan log untuk syscall rmdir dan unlink.**
+
+**D. Sisanya, akan dicatat dengan level INFO.**
+
+**E. Format untuk logging yaitu:**
+`[LEVEL]::[yy][mm][dd]-[HH]:[MM]:[SS]::[CMD]::[DESC ...]`
+
+
 
 
 
