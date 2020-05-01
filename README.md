@@ -64,7 +64,7 @@ if(enc[i]=='/')break;
 		}
 ```
 - Sehingga enkripsi dimulai dari karakter ke start hingga ke length
-- Fungsi Dekripsi versi 1 :
+- Fungsi Dekripsi :
 ```
 void decription1WithLength(char * enc, int length){
 	if(strcmp(enc, ".") == 0 || strcmp(enc, "..") == 0)return;
