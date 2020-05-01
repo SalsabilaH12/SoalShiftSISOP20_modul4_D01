@@ -10,10 +10,10 @@
 
 **E. Semua file yang berada dalam direktori ter enkripsi menggunakan caesar cipher dengan key.**
 
-`9(ku@AW1[Lmvgax6q`5Y2Ry?+sF!^HKQiBXCUSe&0M.b%rI'7d)o4~VfZ*{#:}ETt$3J-zpc]lnh8,GwP_ND|jO`
+`9(ku@AW1[Lmvgax6q5Y2Ry?+sF!^HKQiBXCUSe&0M.b%rI'7d)o4~VfZ*{#:}ETt$3J-zpc]lnh8,GwP_ND|jO`
 
 **F. Metode enkripsi pada suatu direktori juga berlaku kedalam direktori lainnya yang ada didalamnya.**
-- Fungsi :
+- Fungsi Enkripsi :
 ```
 void encription1WithLength(char* enc, int length) {
 	if(strcmp(enc, ".") == 0 || strcmp(enc, "..") == 0)return;
@@ -46,7 +46,7 @@ void encription1(char* enc) {
 	encription1WithLength(enc, strlen(enc));
 }
 ```
--	`char key[100] = "9(ku@AW1[Lmvgax6q`5Y2Ry?+sF!^HKQiBXCUSe&0M.b%rI'7d)o4~VfZ*{#:}ETt$3J-zpc]lnh8,GwP_ND|jO"` yaitu untuk menyimpan character key yang dipakai. Character yang memiliki panjang 87 karakter, dan key yang di pakai adalah 10, sehingga kalau di enkrip akan di geser ke kanan sebanyak 10 karakter.
+-	`char key[100] = "9(ku@AW1[Lmvgax6q'5Y2Ry?+sF!^HKQiBXCUSe&0M.b%rI'7d)o4~VfZ*{#:}ETt$3J-zpc]lnh8,GwP_ND|jO"` yaitu untuk menyimpan character key yang dipakai. Character yang memiliki panjang 87 karakter, dan key yang di pakai adalah 10, sehingga kalau di enkrip akan di geser ke kanan sebanyak 10 karakter.
 -	Variable enc merupakan string yang akan dienkripsi. Apabila enc ke-i sama dengan key ke-j, maka variable enc ke-i akan diubah menjadi key ke (j+17) % 87.
 -	`if(enc[i]=='/')` continue Untuk mengabaikan apabila bertemu tanda / sesuai note pada soal
 -	`void encription1WithLength(char* enc, int length)` untuk mengenkripsi nama file / direktori. Misal, apabila mkdir rahasia/encv1_coba, maka yg di enkripsi hanya string encv1_coba saja, rahasia/ tidak akan di enkripsi. Begitu pula dengan ekstensi dari file. Untuk memenuhi persyaratan tsb menggunakan :
@@ -98,7 +98,7 @@ void decription1(char* enc){
 }
 ```
 - hanya berbeda di pergeseran karakter dengan enkripsi
-- `char key[100] = "9(ku@AW1[Lmvgax6q`5Y2Ry?+sF!^HKQiBXCUSe&0M.b%rI'7d)o4~VfZ*{#:}ETt$3J-zpc]lnh8,GwP_ND|jO"` Untuk menyimpan character key yang dipakai. Character ini memiliki panjang 87 karakter, dan key yang di pakai adalah 10, sehingga artinya kalau di enkrip akan di geser ke kanan sebanyak 10 karakter. Jika didekripsi akan bergeser ke kanan sebanyak banyak karakter pada key (87) dikurangi key yang dipakai (10), maka 87-10=77.
+- `char key[100] = "9(ku@AW1[Lmvgax6q'5Y2Ry?+sF!^HKQiBXCUSe&0M.b%rI'7d)o4~VfZ*{#:}ETt$3J-zpc]lnh8,GwP_ND|jO"` Untuk menyimpan character key yang dipakai. Character ini memiliki panjang 87 karakter, dan key yang di pakai adalah 10, sehingga artinya kalau di enkrip akan di geser ke kanan sebanyak 10 karakter. Jika didekripsi akan bergeser ke kanan sebanyak banyak karakter pada key (87) dikurangi key yang dipakai (10), maka 87-10=77.
 - Variable enc merupakan string yang akan didekripsi. Apabila enc ke-i sama dengan key ke-j, maka variable enc ke-i akan dibah menjaid key ke (j+77) % 87.
 - `if(enc[i]=='/')` continue Untuk emngabaikan apabila bertemu tanda / sesuai note pada soal
 - `void decription1WithLength(char* enc, int length)` untuk mengenkripsi nama file / direktori. Misalkan apabila mkdir rahasia/encv1_coba, maka yg di enkripsi hanya string encv1_coba saja, rahasia/ tidak akan di enkripsi. Begitu juga dengan ekstensi dari file. Untuk memenuhi persyaratan tsb menggunakan :
