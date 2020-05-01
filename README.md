@@ -99,9 +99,9 @@ void decription1(char* enc){
 ```
 - hanya berbeda di pergeseran karakter dengan enkripsi
 - `char key[100] = "9(ku@AW1[Lmvgax6q'5Y2Ry?+sF!^HKQiBXCUSe&0M.b%rI'7d)o4~VfZ*{#:}ETt$3J-zpc]lnh8,GwP_ND|jO"` Untuk menyimpan character key yang dipakai. Character ini memiliki panjang 87 karakter, dan key yang di pakai adalah 10, sehingga artinya kalau di enkrip akan di geser ke kanan sebanyak 10 karakter. Jika didekripsi akan bergeser ke kanan sebanyak banyak karakter pada key (87) dikurangi key yang dipakai (10), maka 87-10=77.
-- Variable enc merupakan string yang akan didekripsi. Apabila enc ke-i sama dengan key ke-j, maka variable enc ke-i akan dibah menjaid key ke (j+77) % 87.
-- `if(enc[i]=='/')` continue Untuk emngabaikan apabila bertemu tanda / sesuai note pada soal
-- `void decription1WithLength(char* enc, int length)` untuk mengenkripsi nama file / direktori. Misalkan apabila mkdir rahasia/encv1_coba, maka yg di enkripsi hanya string encv1_coba saja, rahasia/ tidak akan di enkripsi. Begitu juga dengan ekstensi dari file. Untuk memenuhi persyaratan tsb menggunakan :
+- Variable enc merupakan string yang akan didekripsi. Apabila enc ke-i sama dengan key ke-j, maka variable enc ke-i akan dibah menjadi key ke (j+77) % 87.
+- `if(enc[i]=='/')` continue Untuk mengabaikan apabila bertemu tanda / sesuai note pada soal
+- `void decription1WithLength(char* enc, int length)` untuk mengdnkrip nama file / direktori. Misalkan apabila mkdir rahasia/encv1_coba, maka yg di dekrispsi hanya string encv1_coba saja, rahasia/ tidak akan di dekripsi. Begitu juga dengan ekstensi dari file. Untuk memenuhi persyaratan tsb menggunakan :
 ```
 if(enc[i]=='/')break;
 	if(enc[i]=='.'){
