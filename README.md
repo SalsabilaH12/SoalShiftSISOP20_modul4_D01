@@ -46,10 +46,11 @@ void encription1(char* enc) {
 	encription1WithLength(enc, strlen(enc));
 }
 ```
--	`char key[100] = "9(ku@AW1[Lmvgax6q'5Y2Ry?+sF!^HKQiBXCUSe&0M.b%rI'7d)o4~VfZ*{#:}ETt$3J-zpc]lnh8,GwP_ND|jO"` yaitu untuk menyimpan character key yang dipakai. Character yang memiliki panjang 87 karakter, dan key yang di pakai adalah 10, sehingga kalau di enkrip akan di geser ke kanan sebanyak 10 karakter.
--	Variable enc merupakan string yang akan dienkripsi. Apabila enc ke-i sama dengan key ke-j, maka variable enc ke-i akan diubah menjadi key ke (j+17) % 87.
--	`if(enc[i]=='/')` continue Untuk mengabaikan apabila bertemu tanda / sesuai note pada soal
--	`void encription1WithLength(char* enc, int length)` untuk mengenkripsi nama file / direktori. Misal, apabila mkdir rahasia/encv1_coba, maka yg di enkripsi hanya string encv1_coba saja, rahasia/ tidak akan di enkripsi. Begitu pula dengan ekstensi dari file. Untuk memenuhi persyaratan tsb menggunakan :
+- `void encription1WithLength(char* enc, int length)` Fungsi ini berfungsi untuk mengenkripsi nama file / direktori.
+- Terdapat variabel `char key[100] = ` untuk menyimpan character key yang dipakai. Character dengan panjang 87 karakter, dan key yang dipakai adalah 10, Maka, kalau di enkripsi akan bergeser kekanan sebanyak 10 karakter.
+- Lalu terdapat Variable enc merupakan string yang akan dienkripsi. Variable enc ke-i akan diubah menjadi key ke (j+10) % 87.
+- Terdapat `if(enc[i]=='/')` continue Untuk mengabaikan apabila bertemu tanda /.
+- Seperti yg dijelaskan pada soal, apabila mkdir rahasia/encv1_coba, yg di enkripsi hanya string encv1_coba saja, rahasia/ tidak akan di enkripsi. Begitu pula dengan ekstensi dari file. Untuk memenuhi persyaratan tsb menggunakan :
 ```
 if(enc[i]=='/')break;
 	if(enc[i]=='.'){
@@ -63,7 +64,7 @@ if(enc[i]=='/')break;
 			break;
 		}
 ```
-- Sehingga enkripsi dimulai dari karakter ke start hingga ke length
+- Maka, direktori akan terenkripsi dari karakter start hingga ke length
 - Fungsi Dekripsi :
 ```
 void decription1WithLength(char * enc, int length){
@@ -97,11 +98,10 @@ void decription1(char* enc){
 	decription1WithLength(enc, strlen(enc));
 }
 ```
-- hanya berbeda di pergeseran karakter dengan enkripsi
-- `char key[100] = "9(ku@AW1[Lmvgax6q'5Y2Ry?+sF!^HKQiBXCUSe&0M.b%rI'7d)o4~VfZ*{#:}ETt$3J-zpc]lnh8,GwP_ND|jO"` Untuk menyimpan character key yang dipakai. Character ini memiliki panjang 87 karakter, dan key yang di pakai adalah 10, sehingga artinya kalau di enkrip akan di geser ke kanan sebanyak 10 karakter. Jika didekripsi akan bergeser ke kanan sebanyak banyak karakter pada key (87) dikurangi key yang dipakai (10), maka 87-10=77.
-- Variable enc merupakan string yang akan didekripsi. Apabila enc ke-i sama dengan key ke-j, maka variable enc ke-i akan dibah menjadi key ke (j+77) % 87.
-- `if(enc[i]=='/')` continue Untuk mengabaikan apabila bertemu tanda / sesuai note pada soal
-- `void decription1WithLength(char* enc, int length)` untuk mengdnkrip nama file / direktori. Misalkan apabila mkdir rahasia/encv1_coba, maka yg di dekrispsi hanya string encv1_coba saja, rahasia/ tidak akan di dekripsi. Begitu juga dengan ekstensi dari file. Untuk memenuhi persyaratan tsb menggunakan :
+- `void decription1WithLength(char* enc, int length)` Fungsi ini untuk mendekrip nama file / direktori. Terdapat perbedaan di pergeseran character saja dengan enkripsi. Jikalau di enkrip akan bergeser ke kanan sebanyak 10 character. Maka, dekripsi akan bergeser ke kanan sebanyak character pada key (87) dikurang key yang dipakai (10), jadi 87-10=77.
+- Terdapat Variable enc merupakan string yang akan didekripsi. Variable enc ke-i akan diubah menjadi key ke (j+77) % 87.
+- Lalu, terdapat `if(enc[i]=='/')` continue Untuk mengabaikan apabila bertemu tanda /.
+- Seperti yg dijelaskan pada soal, apabila mkdir rahasia/encv1_coba, maka yg di dekrispsi hanya string encv1_coba saja, rahasia/ tidak akan di dekripsi. Begitu juga dengan ekstensi dari file. Untuk memenuhi persyaratan tsb menggunakan :
 ```
 if(enc[i]=='/')break;
 	if(enc[i]=='.'){
@@ -115,7 +115,7 @@ if(enc[i]=='/')break;
 			break;
 		}
 ```
-- Sehingga dekripsi dimulai dari karakter ke start hingga ke length
+- Maka, direktori akan didekripsi dari character start hingga ke length
 
 ## Soal 2. Enkripsi versi 2
 **A. Jika sebuah direktori dibuat dengan awalan “encv2_”, maka direktori tersebut akan menjadi direktori terenkripsi menggunakan metode enkripsi v2.**
