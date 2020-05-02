@@ -48,8 +48,8 @@ void encription1(char* enc) {
 ```
 - `void encription1WithLength(char* enc, int length)` Fungsi ini berfungsi untuk mengenkripsi nama file / direktori.
 - Terdapat variabel `char key[100] = ` untuk menyimpan character key yang dipakai. Character dengan panjang 87 karakter, dan key yang dipakai adalah 10, Maka, kalau di enkripsi akan bergeser kekanan sebanyak 10 karakter.
-- Lalu terdapat Variable enc merupakan string yang akan dienkripsi. Variable enc ke-i akan diubah menjadi key ke (j+10) % 87.
-- Untuk mengabaikan apabila bertemu tanda / menggunakan `if(enc[i]=='/')` continue 
+- Lalu, terdapat Variabel enc merupakan string yang akan dienkripsi. Variable enc ke-i akan diubah menjadi key ke (j+10) % 87.
+- Untuk mengabaikan apabila bertemu tanda / menggunakan `if(enc[i]=='/') continue`. 
 - Seperti yg dijelaskan pada soal, apabila mkdir rahasia/encv1_coba, yg di enkripsi hanya string encv1_coba saja, rahasia/ tidak akan di enkripsi. Begitu pula dengan ekstensi dari file. Untuk memenuhi persyaratan tsb menggunakan :
 ```
 if(enc[i]=='/')break;
