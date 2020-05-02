@@ -320,7 +320,35 @@ static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_
 **E. Format untuk logging yaitu:**
 `[LEVEL]::[yy][mm][dd]-[HH]:[MM]:[SS]::[CMD]::[DESC ...]`
 
+```
+void writeWarning(char * str){
+    FILE * logFile = fopen("/home/linuxlite/fs.log", "a");
+    time_t rawtime;
+    struct tm * timeinfo;
+    time ( &rawtime );
+    timeinfo = localtime (&rawtime);
+    fprintf(logFile, "WARNING::%d%d%d-%d:%d:%d::%s\n", timeinfo->tm_year+1900, timeinfo->tm_mon, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec, str);
+    fclose(logFile);
+}
 
+void writeInfo(char * str){
+    FILE * logFile = fopen("/home/linuxlite/fs.log", "a");
+    time_t rawtime;
+    struct tm * timeinfo;
+    time ( &rawtime );
+    timeinfo = localtime (&rawtime);
+    fprintf(logFile, "INFO::%d%d%d-%d:%d:%d::%s\n", timeinfo->tm_year+1900, timeinfo->tm_mon, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec, str);
+    fclose(logFile);
+}
+```
+- Fungsi `log_path` berfungsi untuk menyimpan nama path file yang akan digunakan untuk membuat file `fs.log`.
+- Untuk `timeinfo->tm_year+1900, timeinfo->tm_mon, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec` adalah (tahun, bulan, hari, jam, menit, detik)
+- Untuk `localtime(&rawtime)` mengambil argument time_t.
+- Untuk `fprintf()` print format logging WARNING / INFO ke logFile.
+
+Tidak lupa untuk Menaruh log `writeINFO` di fungsi `MKDIR`,` MKNOD`,`RENAME`,`TRUNCATE`,`WRITE` dan log `writeWarning` di fungsi `UNLINK`,`RMDIR` dengan mendeklarasikan array str, 
+di bagian sprintf melakukan penggabungan dimana fpath yang berformat %s (berisi nama file) digabung dengan `writeInfo` atau `writeWarning` yang akan disimpan di variabel str. 
+Fungsi-fungsi tersebut akan tercatat pada file yang bernama fs.log.
 
 
 
