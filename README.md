@@ -49,7 +49,7 @@ void encription1(char* enc) {
 - `void encription1WithLength(char* enc, int length)` Fungsi ini berfungsi untuk mengenkripsi nama file / direktori.
 - Terdapat variabel `char key[100] = ` untuk menyimpan character key yang dipakai. Character dengan panjang 87 karakter, dan key yang dipakai adalah 10, Maka, kalau di enkripsi akan bergeser kekanan sebanyak 10 karakter.
 - Lalu terdapat Variable enc merupakan string yang akan dienkripsi. Variable enc ke-i akan diubah menjadi key ke (j+10) % 87.
-- Terdapat `if(enc[i]=='/')` continue Untuk mengabaikan apabila bertemu tanda /.
+- Untuk mengabaikan apabila bertemu tanda / menggunakan `if(enc[i]=='/')` continue 
 - Seperti yg dijelaskan pada soal, apabila mkdir rahasia/encv1_coba, yg di enkripsi hanya string encv1_coba saja, rahasia/ tidak akan di enkripsi. Begitu pula dengan ekstensi dari file. Untuk memenuhi persyaratan tsb menggunakan :
 ```
 if(enc[i]=='/')break;
@@ -100,7 +100,7 @@ void decription1(char* enc){
 ```
 - `void decription1WithLength(char* enc, int length)` Fungsi ini untuk mendekrip nama file / direktori. Terdapat perbedaan di pergeseran character saja dengan enkripsi. Jikalau di enkrip akan bergeser ke kanan sebanyak 10 character. Maka, dekripsi akan bergeser ke kanan sebanyak character pada key (87) dikurang key yang dipakai (10), jadi 87-10=77.
 - Terdapat Variable enc merupakan string yang akan didekripsi. Variable enc ke-i akan diubah menjadi key ke (j+77) % 87.
-- Lalu, terdapat `if(enc[i]=='/')` continue Untuk mengabaikan apabila bertemu tanda /.
+- Untuk mengabaikan apabila bertemu tanda / menggunakan `if(enc[i]=='/')` continue
 - Seperti yg dijelaskan pada soal, apabila mkdir rahasia/encv1_coba, maka yg di dekrispsi hanya string encv1_coba saja, rahasia/ tidak akan di dekripsi. Begitu juga dengan ekstensi dari file. Untuk memenuhi persyaratan tsb menggunakan :
 ```
 if(enc[i]=='/')break;
@@ -150,13 +150,16 @@ void encription2(char * path){
 	remove(path);
 }
 ```
-- Untuk menyalin isi file yang akan di enkripsi, maka menggunakan FILE * file dengan command fopen dan fclose.
-- Membuka / membuat file dengan fopen(path, "rb");. "rb" digunakan untuk membuka file sebagai binary file, bukan text file
-- Mengformat nama file seperti persyaratan no 2 menggunakan sprintf(topath, "%s.%03d", path, count) dimana topath nantinya akan berisi file yang sama persis dengan path, namun dengan format nama yang berbeda. "%s.%03d" untuk menambahkan nama file sesuai ukuran dari file dengan karakter 0 berjumlah 3 setelah titik. Misalkan ssfs.c.000, ssfs.c.001, dst.
-- Mengcopy isi file ke sub-file topath menggunakan write fopen(topath, "w")
-- Untuk mengcopy file ke buffer / disimpan di memory buffer menggunakan size_t fread
-- Setelah isi file di copy, tutup filenya, tambahkan countnya (sebagai penanda berapa topath / sub-file yang sudah dibuat), dan Mengformat nama file lagi menggunakan sprintf(topath, "%s.%03d", path, count) dengan count yang sudah bertambah.
-- Lalu, setelah sudah terbentuk n sub-file sesuai ukuran file asli, free buffer, tutup file, dan hapus file aslinya
+- `void encription2(char * path)` Fungsi ini untuk mengenkripsi nama file / direktori versi 2. 
+- `FILE * file` digunakan untuk menyalin isi file yang akan di enkripsi, dengan command fopen dan fclose.
+- `fopen(path, "rb");` untuk Membuka / membuat file. 
+- Untuk membuka file sebagai binary file, bukan text file menggunakan "rb".
+- Seperti yang terdapat di persayaratan, untuk mengformat nama file digunakan `sprintf(topath, "%s.%03d", path, count)` dengan topath yang akan berisi file yang sama dengan path, tetapi dengan format nama yang berbeda. 
+- Untuk menambahkan nama file sesuai ukuran dari file dengan karakter 0 berjumlah 3 setelah titik menggunakan `"%s.%03d"`.
+- Terdapat `fopen(topath, "w")` untuk mengcopy isi file ke sub-file topath. 
+- Lalu, terdapat size_t fread untuk mengcopy file ke buffer atau disimpan di memory buffer
+- Setelah itu, copy isi file, tutup file, dan tambahkan count(sebagai penanda berapa topath/sub-file yang sudah dibuat), serta menggunakan `sprintf(topath, "%s.%03d", path, count)` untuk mengformat nama file lagi dengan count yang sudah bertambah.
+- Lanjut, jika sudah terbentuk n sub-file sama seperti ukuran file asli, maka, free buffer, tutup file, dan file aslinya dihapus.
 - Fungsi deskripsi :
 ```
 void decription2(char * path){
@@ -181,13 +184,62 @@ void decription2(char * path){
 	fclose(file);
 }
 ```
-- Membuka / membuat file dengan fopen(path, "r");. "r" digunakan untuk membuka file sebagai text file dan menyalin isinya dengan command fopen(path, "w"). "w" digunakan untuk menulis isi file asli (sub-file akan menjadi 1 file asli sesuai file sebelum di enkripsi).
-- Membuka semua sub-file yang telah di enkripsi (di format) dengan FILE * op = fopen(topath, "rb");. Apabila isinya kosong, berarti file tersebut tidak ada /not exist.
-- Untuk mengcopy file ke buffer / disimpan di memory buffer menggunakan size_t fread
-- Untuk mendekripsi kembali, kita harus menghapus sub-file hasil enkripsi dengan remove(topath);, menambah countnya, mengformat nama file lagi menggunakan sprintf(topath, "%s.%03d", path, count) dengan count yang sudah bertambah dan menghapusnya lagi sesuai jumlah sub-file.
-- Lalu, setelah sudah terbentuk n sub-file sesuai ukuran file asli, free buffer dan tutup file
-- Selanjutnya fungsi enkripsi dan dekripsi tersebut akan dipanggil dalam xmp_readdir dan xmp_getattr dan yang lainnya sesuai permintaan soal. Pemanggilan fungsi dekripsi pada xmp_readdir akan menampilkan nama file di folder tujuan yang telah didekripsi. Sedangkan pada xmp_getattr pemanggilan fungsi enkripsi agar file dapat menemukan lokasi aslinya dengan nama sebelumnya (awal).
-- Untuk fungsi lainnya menyesuaikan, misalkan xmp_rename untuk mengganti nama file yang akan di enkripsi / dekripsi, xmp_unlink untuk menghapus suatu file, xmp_read dan xmp_wite untuk membuka / membuat file dan mengcopy isi file dst. Contoh xmp_readdir dan xmp_getattr :
+- `void decription2(char * path)` Fungsi ini untuk mendekrip nama file/direktori.
+- `fopen(path, "r");` digunakan untuk membuka / membuat file. 
+- Untuk membuka file sebagai text file dan menyalin isinya dengan command `fopen(path, "w")` menggunakan `"r"`. 
+- Untuk menulis isi file asli (sub-file akan menjadi 1 file asli sesuai file sebelum di enkripsi) menggunakan `"w"`.
+- Terdapat `FILE * op = fopen(topath, "rb");` digunakan untuk membuka semua sub-file yang telah di enkripsi. Jika isinya kosong, maka file tersebut tidak ada/not exist.
+- size_t fread digunakan untuk mengcopy file ke buffer atau disimpan di memory buffer.
+- Kemudian untuk mendekripsi kembali, sub-file hasil enkripsi harus dihapus dengan `remove(topath);`, count bertambah, lalu menggunakan `sprintf(topath, "%s.%03d", path, count)` untuk mengformat nama file kembali dengan count yang sudah bertambah dan menghapus kembali sesuai jumlah sub-file.
+- Setelah sudah terbentuk n sub-file sesuai ukuran file asli, free buffer dan tutup file.
+- xmp_readdir dan xmp_getattr dan yang lainnya akan memanggil fungsi enkripsi dan dekripsi tersebut. 
+- pada xmp_readdir pemanggilan fungsi dekripsi akan menampilkan nama file di folder tujuan yang telah didekripsi. 
+- Lalu, pemanggilan fungsi enkripsi pada xmp_getattr agar file dapat menemukan lokasi aslinya dengan nama awalnya.
+- Terdapat juga fungsi lainnya yang menyesuaikan, seperti xmp_rename untuk mengganti nama file yang akan di enkripsi atau dekripsi, xmp_unlink untuk menghapus suatu file, xmp_read dan xmp_write untuk membuka / membuat file dan mengcopy isi file dst.Misal xmp_getattr dan xmp_readdir:
+- xmp_getattr:
+```
+static  int  xmp_getattr(const char *path, struct stat *stbuf){
+	char * enc1Ptr = strstr(path, encv1);
+	if(lastCommand == MKNOD_STATUS || lastCommand == MKDIR_STATUS){
+
+	}else{
+		if(enc1Ptr != NULL)
+			decription1(enc1Ptr);
+	}
+	printf("DEBUG getattr %d %s\n", lastCommand, path);
+	char * enc2Ptr = strstr(path, encv2);
+	int res;
+	char fpath[1000];
+	sprintf(fpath,"%s%s", dirpath, path);
+	// printf("%s\n", fpath);
+	res = lstat(fpath, stbuf);
+	if (res == -1){
+		if(enc2Ptr == NULL){
+			return -errno;
+		}else{
+			sprintf(fpath,"%s%s.000", dirpath, path);
+			lstat(fpath, stbuf);
+			int count = 0;
+			struct stat st;
+			int sizeCount = 0;
+			while(1){
+				if(stat(fpath, &st) < 0){
+					break;
+				}
+				count++;
+				sprintf(fpath, "%s%s.%03d", dirpath, path, count);
+				sizeCount += st.st_size;
+			}
+			stbuf->st_size = sizeCount;
+		}
+	}
+	return 0;
+}
+```
+- Fungsi xmp_getattr digunakan agar file dapat menemukan lokasi aslinya dengan nama awalnya.
+- Untuk mengambil / mereturn path yang stringnya hanya dimulai dari encv1 menggunakan `strstr(path, encv1);`.
+- Untuk mereturn informasi dari suatu file menggunakan `lstat(fpath, stbuf)` dimana informasi tsb merupakan fpath.
+
 - xmp_readdir :
 ```
 static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi){
@@ -240,52 +292,9 @@ static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_
 	return 0;
 }
 ```
-- Pada xmp_readdir, akan menampilkan hasil dekripsi1 dari char * enc1Ptr = strstr(path, encv1)
-- spintf(fpath, "%s", path) dan sprintf(fpath, "%s%s", dirpath, path); untuk menggabungkan path dari file yang akan di enkripsi apabila enc1Ptr tidak kosong yang enc2Ptr ini berada di dalam fpath.
-- Lalu, untuk menutup directory apabila telah selesai menenkripsi / mendekripsi suatu file / direktori dengan close(dp)
-- xmp_getattr:
-```
-static  int  xmp_getattr(const char *path, struct stat *stbuf){
-	char * enc1Ptr = strstr(path, encv1);
-	if(lastCommand == MKNOD_STATUS || lastCommand == MKDIR_STATUS){
-
-	}else{
-		if(enc1Ptr != NULL)
-			decription1(enc1Ptr);
-	}
-	printf("DEBUG getattr %d %s\n", lastCommand, path);
-	char * enc2Ptr = strstr(path, encv2);
-	int res;
-	char fpath[1000];
-	sprintf(fpath,"%s%s", dirpath, path);
-	// printf("%s\n", fpath);
-	res = lstat(fpath, stbuf);
-	if (res == -1){
-		if(enc2Ptr == NULL){
-			return -errno;
-		}else{
-			sprintf(fpath,"%s%s.000", dirpath, path);
-			lstat(fpath, stbuf);
-			int count = 0;
-			struct stat st;
-			int sizeCount = 0;
-			while(1){
-				if(stat(fpath, &st) < 0){
-					break;
-				}
-				count++;
-				sprintf(fpath, "%s%s.%03d", dirpath, path, count);
-				sizeCount += st.st_size;
-			}
-			stbuf->st_size = sizeCount;
-		}
-	}
-	return 0;
-}
-```
-- strstr(path, encv1); untuk mengambil / mereturn path yang stringnya hanya dimulai dari encv1, yaitu "encv1_", sehingga dari string encv1_ steerusnya dapat di dekripsi.
-- lstat(fpath, stbuf) untuk mereturn informasi dari suatu file, dalam hal ini berarti fpath
-
+- Pada fungsi xmp_readdir digunakan untuk menampilkan hasil dekripsi1 dari `char * enc1Ptr = strstr(path, encv1)`.
+- Untuk menggabungkan path dari file yang akan di enkripsi jika enc1Ptr tidak kosong dan enc2Ptr berada di dalam menggunakan `fpathspintf(fpath, "%s", path)` dan `sprintf(fpath, "%s%s", dirpath, path);`.
+- Kemudian, close(dp) digunakan untuk menutup directory apabila telah selesai menenkripsi atau mendekripsi suatu direktori
 
 ## Soal 3. Sinkronisasi direktori otomatis:
 
